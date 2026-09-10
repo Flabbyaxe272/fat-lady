@@ -58,4 +58,4 @@ securely on-device — no hardcoded server config.
 ## Status
 
 v0.1 in active development. Core learning goals: Compose, Media3, MVVM/Hilt architecture, and 
-reliable playback across changing network conditions (home Wi-Fi, cellular, Tailscale).
+reliable playback across changing network conditions (home Wi-Fi, cellular, Tailscale).// test line from main
