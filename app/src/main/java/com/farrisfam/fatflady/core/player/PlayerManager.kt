@@ -41,7 +41,6 @@ class PlayerManager @Inject constructor(
 
     fun seekTo(positionMs: Long) = player.seekTo(positionMs)
 
-    @Suppress("unused")
     fun release() = player.release()
 }
 
