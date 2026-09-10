@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 data class PlaybackState(
     val isPlaying: Boolean = false,
@@ -39,5 +41,11 @@ class PlayerManager @Inject constructor(
 
     fun seekTo(positionMs: Long) = player.seekTo(positionMs)
 
+    @Suppress("unused")
     fun release() = player.release()
 }
+
+@HiltViewModel
+class PlayerManagerHolder @Inject constructor(
+    val playerManager: PlayerManager
+) : ViewModel()
