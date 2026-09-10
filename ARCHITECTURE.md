@@ -34,9 +34,10 @@ com.farrisfam.fatflady
 │   ├── search/
 │   ├── settings/
 │   ├── nowplaying/  The full Now Playing screen + its ViewModel.
-│   └── player/       Player UI shared across contexts (MiniPlayerBar). If this ever
-│                     grows to overlap heavily with nowplaying/ (e.g. shared progress
-│                     bar composable), merge them then — not preemptively.
+│   └── player/       Playback UI shared across contexts, not screen-specific
+│                     (MiniPlayerBar now; future: shared progress bar, queue sheet).
+│                     Name is "player" not "miniplayer" — this package covers any
+│                     playback UI that isn't a full screen, not just the mini-player.
 │
 ├── navigation/       Routing plumbing ONLY: destination definitions, NavHost, the
 │                     top-level Scaffold that assembles screens + persistent UI

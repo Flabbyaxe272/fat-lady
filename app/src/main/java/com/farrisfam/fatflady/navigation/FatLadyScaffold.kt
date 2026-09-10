@@ -7,34 +7,51 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.compose.runtime.getValue
+import com.farrisfam.fatflady.core.player.PlayerManager
+import com.farrisfam.fatflady.feature.player.MiniPlayerBar
 
 @Composable
-fun FatLadyScaffold(navController: NavHostController) {
+fun FatLadyScaffold(
+    navController: NavHostController,
+    playerManager: PlayerManager
+) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                bottomNavDestinations.forEach { destination ->
-                    NavigationBarItem(
-                        selected = currentRoute == destination.route,
-                        onClick = {
-                            android.util.Log.d("NavDebug", "Tapped ${destination.route}, current: $currentRoute")
-                            navController.navigate(destination.route) {
-                                popUpTo(navController.graph.startDestinationId) {
-                                    inclusive = false
-                                }
+            androidx.compose.foundation.layout.Column {
+                if (currentRoute != FatLadyDestination.NowPlaying.route) {
+                    MiniPlayerBar(
+                        playerManager = playerManager,
+                        visible = currentRoute != FatLadyDestination.NowPlaying.route,
+                        onBarClick = {
+                            navController.navigate(FatLadyDestination.NowPlaying.route) {
                                 launchSingleTop = true
                             }
-                        },
-                        icon = { Icon(destination.icon!!, contentDescription = destination.label) },
-                        label = { Text(destination.label!!) }
+                        }
                     )
+                }
+                NavigationBar {
+                    bottomNavDestinations.forEach { destination ->
+                        NavigationBarItem(
+                            selected = currentRoute == destination.route,
+                            onClick = {
+                                navController.navigate(destination.route) {
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        inclusive = false
+                                    }
+                                    launchSingleTop = true
+                                }
+                            },
+                            icon = { Icon(destination.icon!!, contentDescription = destination.label) },
+                            label = { Text(destination.label!!) }
+                        )
+                    }
                 }
             }
         }

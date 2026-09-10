@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.farrisfam.fatflady.navigation.FatLadyScaffold
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.farrisfam.fatflady.core.player.PlayerManagerHolder
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -39,8 +42,13 @@ class MainActivity : ComponentActivity() {
                         launcher.launch(permission)
                     }
 
+                    val playerManagerHolder: PlayerManagerHolder = hiltViewModel()
                     val navController = rememberNavController()
-                    FatLadyScaffold(navController = navController)
+
+                    FatLadyScaffold(
+                        navController = navController,
+                        playerManager = playerManagerHolder.playerManager
+                    )
                 }
             }
         }
