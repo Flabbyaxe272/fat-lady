@@ -14,14 +14,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.farrisfam.fatflady.core.player.PlayerManager
 import com.farrisfam.fatflady.navigation.FatLadyScaffold
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.farrisfam.fatflady.core.player.PlayerManagerHolder
-
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var playerManager: PlayerManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,12 +45,11 @@ class MainActivity : ComponentActivity() {
                         launcher.launch(permission)
                     }
 
-                    val playerManagerHolder: PlayerManagerHolder = hiltViewModel()
                     val navController = rememberNavController()
 
                     FatLadyScaffold(
                         navController = navController,
-                        playerManager = playerManagerHolder.playerManager
+                        playerManager = playerManager
                     )
                 }
             }

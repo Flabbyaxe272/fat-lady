@@ -81,7 +81,6 @@ com.farrisfam.fatflady
 
 ```
 core/player/PlayerManager.kt
-core/player/PlayerManagerHolder.kt
 
 data/model/Song.kt
 data/repository/SongRepository.kt
